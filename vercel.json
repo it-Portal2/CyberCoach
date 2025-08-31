@@ -28,7 +28,7 @@
   ],
   "functions": {
     "server/index.ts": {
-      "includeFiles": ["shared/**/*"]
+      "includeFiles": "shared/**"
     }
   },
   "outputDirectory": "dist"
