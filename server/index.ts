@@ -3,7 +3,25 @@ import express, { type Request, Response, NextFunction } from "express";
 import path from "path";
 import { fileURLToPath } from "url";
 import { GoogleGenAI } from "@google/genai";
-import { mentorRequestSchema, mentorResponseSchema } from "../shared/schema.js";
+// Import with fallback for Vercel deployment
+let mentorRequestSchema: any, mentorResponseSchema: any;
+try {
+  const schema = require("../shared/schema.js");
+  mentorRequestSchema = schema.mentorRequestSchema;
+  mentorResponseSchema = schema.mentorResponseSchema;
+} catch (error) {
+  console.warn("Could not load schema, using basic validation");
+  // Basic fallback validation
+  mentorRequestSchema = {
+    parse: (data: any) => {
+      if (!data.message) throw new Error("Message is required");
+      return data;
+    }
+  };
+  mentorResponseSchema = {
+    parse: (data: any) => data
+  };
+}
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -259,6 +277,7 @@ if (!process.env.VERCEL) {
   app.listen(PORT, () => {
     console.log(`🚀 Server running on http://localhost:${PORT}`);
     console.log(`📡 Environment: ${process.env.NODE_ENV || 'development'}`);
+    console.log(`🤖 AI API Key: ${process.env.GEMINI_API_KEY ? 'Configured' : 'Missing'}`);
   });
 }
 
