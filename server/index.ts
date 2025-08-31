@@ -27,17 +27,19 @@ app.use((req, res, next) => {
   next();
 });
 
-// ✅ Logging middleware
-app.use((req, res, next) => {
-  const start = Date.now();
-  res.on("finish", () => {
-    if (req.path.startsWith("/api")) {
-      const duration = Date.now() - start;
-      console.log(`${req.method} ${req.path} ${res.statusCode} in ${duration}ms`);
-    }
+// ✅ Logging middleware (only in development)
+if (process.env.NODE_ENV === 'development') {
+  app.use((req, res, next) => {
+    const start = Date.now();
+    res.on("finish", () => {
+      if (req.path.startsWith("/api")) {
+        const duration = Date.now() - start;
+        console.log(`${req.method} ${req.path} ${res.statusCode} in ${duration}ms`);
+      }
+    });
+    next();
   });
-  next();
-});
+}
 
 // ✅ Initialize AI
 const ai = new GoogleGenAI({ 
@@ -214,8 +216,17 @@ app.route("/api/mentor/generate-assessment")
     res.status(405).json({ error: `Method ${req.method} not allowed` });
   });
 
-// ✅ Production: Serve React build files
-if (process.env.NODE_ENV === 'production') {
+// ✅ Health check endpoint
+app.get("/api/health", (req, res) => {
+  res.json({ 
+    status: "ok", 
+    timestamp: new Date().toISOString(),
+    environment: process.env.NODE_ENV || 'development'
+  });
+});
+
+// ✅ Production: Serve React build files (only in non-serverless environments)
+if (process.env.NODE_ENV === 'production' && !process.env.VERCEL) {
   const distPath = path.resolve(__dirname, '..');
   
   console.log(`[Production] Serving static files from: ${distPath}`);
@@ -242,13 +253,14 @@ app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
   });
 });
 
-// ✅ Start server
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
-  console.log(`📡 Environment: ${process.env.NODE_ENV || 'development'}`);
-  console.log(`🤖 AI API Key: ${process.env.GEMINI_API_KEY ? 'Configured' : 'Missing'}`);
-});
+// ✅ Start server (only when not in Vercel environment)
+if (!process.env.VERCEL) {
+  const PORT = process.env.PORT || 3000;
+  app.listen(PORT, () => {
+    console.log(`🚀 Server running on http://localhost:${PORT}`);
+    console.log(`📡 Environment: ${process.env.NODE_ENV || 'development'}`);
+  });
+}
 
 // ✅ Export for Vercel
 export default app;
