@@ -28,11 +28,11 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 
-// ✅ Parse JSON and URL encoded bodies
+// Parse JSON and URL encoded bodies
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: false }));
 
-// ✅ CORS middleware - handles preflight OPTIONS requests
+// CORS middleware - handles preflight OPTIONS requests
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
@@ -45,7 +45,7 @@ app.use((req, res, next) => {
   next();
 });
 
-// ✅ Logging middleware (only in development)
+// Logging middleware (only in development)
 if (process.env.NODE_ENV === 'development') {
   app.use((req, res, next) => {
     const start = Date.now();
@@ -59,12 +59,12 @@ if (process.env.NODE_ENV === 'development') {
   });
 }
 
-// ✅ Initialize AI
+// Initialize AI
 const ai = new GoogleGenAI({ 
   apiKey: process.env.GEMINI_API_KEY || "" 
 });
 
-// ✅ API Routes with proper method handling
+// API Routes with proper method handling
 app.route("/api/mentor/chat")
   .post(async (req, res) => {
     try {
@@ -149,7 +149,7 @@ Additional context: ${validatedRequest.context || 'None provided'}`;
       const mentorResponse = JSON.parse(response.text || '{}');
       const validatedResponse = mentorResponseSchema.parse(mentorResponse);
       
-      console.log('Sending response:', validatedResponse);
+  //    console.log('Sending response:', validatedResponse);
       res.json(validatedResponse);
     } catch (error) {
       console.error('Mentor chat error:', error);
@@ -234,7 +234,7 @@ app.route("/api/mentor/generate-assessment")
     res.status(405).json({ error: `Method ${req.method} not allowed` });
   });
 
-// ✅ Health check endpoint
+// Health check endpoint
 app.get("/api/health", (req, res) => {
   res.json({ 
     status: "ok", 
@@ -243,7 +243,7 @@ app.get("/api/health", (req, res) => {
   });
 });
 
-// ✅ Production: Serve React build files (only in non-serverless environments)
+//  Production: Serve React build files (only in non-serverless environments)
 if (process.env.NODE_ENV === 'production' && !process.env.VERCEL) {
   const distPath = path.resolve(__dirname, '..');
   
@@ -260,7 +260,7 @@ if (process.env.NODE_ENV === 'production' && !process.env.VERCEL) {
   });
 }
 
-// ✅ Error handling middleware
+// Error handling middleware
 app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
   const status = err.status || err.statusCode || 500;
   const message = err.message || "Internal Server Error";
@@ -271,15 +271,14 @@ app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
   });
 });
 
-// ✅ Start server (only when not in Vercel environment)
+//  Start server (only when not in Vercel environment)
 if (!process.env.VERCEL) {
   const PORT = process.env.PORT || 3000;
   app.listen(PORT, () => {
-    console.log(`🚀 Server running on http://localhost:${PORT}`);
-    console.log(`📡 Environment: ${process.env.NODE_ENV || 'development'}`);
-    console.log(`🤖 AI API Key: ${process.env.GEMINI_API_KEY ? 'Configured' : 'Missing'}`);
+    console.log(` Server running on http://localhost:${PORT}`);
+    console.log(` Environment: ${process.env.NODE_ENV || 'development'}`);
   });
 }
 
-// ✅ Export for Vercel
+//  Export for Vercel
 export default app;
