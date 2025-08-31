@@ -40,7 +40,6 @@ export function useProgress(roleId?: string) {
   const getRoleProgress = (role: string): number => {
     return progress[role] || storage.getProgress(role);
   };
-
   return {
     progress,
     overallStats,
