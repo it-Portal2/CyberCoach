@@ -22,5 +22,10 @@
       "dest": "/index.html"
     }
   ],
-  "outputDirectory": "dist"
+  "rewrites": [
+    {
+      "source": "/((?!api/.*).*)",
+      "destination": "/index.html"
+    }
+  ]
 }
