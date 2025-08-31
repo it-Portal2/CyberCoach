@@ -2,19 +2,15 @@ import { MentorRequest, MentorResponse } from "@shared/schema";
 
 export class MentorAI {
   private getBaseUrl(): string {
-    // Check if we're in browser environment
     if (typeof window !== "undefined") {
-      // Production: Use same origin (Vercel serves both frontend and API)
       if (
         window.location.hostname.includes("vercel.app") ||
         window.location.hostname !== "localhost"
       ) {
-        return ""; // Same-origin requests in production
+        return ""; // Production: same origin
       }
-      // Development: Use backend server port
-      return "http://localhost:3000";
+      return "http://localhost:3000"; // Development
     }
-    // Fallback for SSR or other environments
     return process.env.NODE_ENV === "production" ? "" : "http://localhost:3000";
   }
 
@@ -22,23 +18,17 @@ export class MentorAI {
     const baseUrl = this.getBaseUrl();
     const fullUrl = `${baseUrl}${endpoint}`;
 
-    console.log(`Making request to: ${fullUrl}`); // Debug log
-
     const response = await fetch(fullUrl, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
 
     if (!response.ok) {
       throw new Error(`API request failed: ${response.statusText}`);
     }
-
     return await response.json();
   }
-
   async askMentor(request: MentorRequest): Promise<MentorResponse> {
     return await this.makeRequest("/api/mentor/chat", request);
   }

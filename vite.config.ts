@@ -7,7 +7,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 export default defineConfig({
-  base: "/", // Critical: Set base path for production
+  base: "/",
   plugins: [react()],
   resolve: {
     alias: {
@@ -19,7 +19,7 @@ export default defineConfig({
   root: path.resolve(__dirname, "client"),
   build: {
     outDir: path.resolve(__dirname, "dist"),
-    emptyOutDir: true,
+    emptyOutDir: false,
     assetsDir: "assets"
   }
 });
