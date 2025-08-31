@@ -11,7 +11,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { TerminalWindow, TerminalPrompt } from "@/components/terminal-window";
 import { useToast } from "@/hooks/use-toast";
 import { mentorAI } from "@/lib/mentor-ai";
 import { storage } from "@/lib/storage";
