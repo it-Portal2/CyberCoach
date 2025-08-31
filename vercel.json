@@ -28,8 +28,7 @@
   ],
   "functions": {
     "server/index.ts": {
-      "includeFiles": ["shared/**/*"],
-      "excludeFiles": ["node_modules/**/*"]
+      "includeFiles": ["shared/**/*"]
     }
   },
   "outputDirectory": "dist"
