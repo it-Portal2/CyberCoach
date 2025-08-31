@@ -1,0 +1,81 @@
+Feature List for Cybersecurity & Penetration Testing Mentor Platform
+
+Job Role Selection Hub
+
+Roles like Red Team Operator, SOC Analyst, Incident Responder, Cloud Security Engineer, Compliance Specialist, etc.
+
+Concept Library
+
+Core topics: Red Teaming, Blue Teaming, Malware Analysis, Threat Hunting, Cloud Security, Application Security, Digital Forensics, Governance Risk & Compliance, etc.
+
+Real-World Case Studies
+
+Practical industry examples for each topic (enterprise breaches, red team operations, SOC responses, compliance audits).
+
+Step-by-Step Methodologies
+
+Detailed breakdowns of “how it’s done in real life” for each security discipline.
+
+Practice Scenarios
+
+Role-specific assignments (e.g., conduct a phishing simulation, write an incident response plan, design compliance checklist).
+
+Knowledge Check Section
+
+Quizzes, short-answer exercises, and scenario-based challenges for self-evaluation.
+
+Strategy Guidance
+
+Actionable advice for planning, execution, reporting, and improving performance in cybersecurity tasks.
+
+Career & Market Readiness Roadmaps
+
+What certifications, tools, and skills are expected in different government and private job roles.
+
+Compliance & Regulations Hub
+
+Guidance on frameworks like ISO 27001, GDPR, HIPAA, PCI-DSS, NIST, SOC 2, and government standards.
+
+Interview Preparation Zone
+
+Common job interview questions and role-play exercises tailored to each role.
+
+Progress Tracking
+
+Personal progress dashboard: completed topics, practice attempts, quiz scores, and readiness level.
+
+Mentor’s Notes & Tips
+
+Short, practical notes on “what actually works in the field” written in mentor’s voice.
+
+Toolkits & Checklists
+
+Ready-to-use penetration testing checklists, SOC analyst workflows, incident response playbooks, and compliance audit templates.
+
+Learning Path Selector
+
+Guided learning paths (Beginner → Intermediate → Advanced) based on career goal.
+
+Role-Based Simulators
+
+Virtual scenarios (red team attack planning, SOC alert handling, compliance audit simulation).
+
+Community Q&A Section
+
+Students can see past questions and mentor-style answers for better peer-to-peer learning.
+
+Resource Repository
+
+Curated links to tools, scripts, reports, whitepapers, and case studies.
+
+Certification Preparation Guides
+
+Mentor-style preparation notes for exams like CEH, OSCP, CISSP, CISM, ISO 27001 LA, etc.
+
+Market-Oriented Tasks
+
+Assignments based on real corporate needs (e.g., writing phishing awareness training material, SOC monitoring checklist).
+
+Government vs. Private Role Insights
+
+Guidance on how job expectations differ in government security roles vs. private corporate security.

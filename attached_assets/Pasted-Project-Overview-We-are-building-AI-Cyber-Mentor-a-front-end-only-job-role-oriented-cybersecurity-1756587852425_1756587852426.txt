@@ -1,0 +1,103 @@
+Project Overview
+
+We are building AI Cyber Mentor, a front-end-only, job-role-oriented cybersecurity mentoring platform. It must:
+
+Be Vercel-deployable (Next.js + Tailwind recommended).
+
+Use Gemini Free API (key will be provided, must stay secure).
+
+Provide an interactive UI: job roles → concepts → examples → methodology → practice → knowledge check → AI mentor Q&A.
+
+Act like a 20+ years experienced cybersecurity mentor, guiding, testing, and giving strategies.
+
+2. Tech Stack
+
+Framework: Next.js (App Router or Pages Router — choose for simplicity).
+
+Styling: Tailwind CSS.
+
+State management: use React hooks (avoid heavy libraries unless needed).
+
+Persistence: LocalStorage/IndexedDB for student progress (no backend DB in MVP).
+
+AI Integration:
+
+Calls to Gemini Free Model through serverless API route (/api/generate).
+
+API key stored as GEMINI_API_KEY in Vercel environment.
+
+Client must never directly expose the API key.
+
+3. Environment Variables
+
+Add these to Vercel Dashboard → Project Settings → Environment Variables:
+
+\nGEMINI_API_KEY=provided_key\nGEMINI_MODEL=gemini-free\nNEXT_PUBLIC_BRAND_NAME=AI Cyber Mentor\nNEXT_PUBLIC_PRIMARY_COLOR=#0f766e\n
+
+4. Core Features & UI Flow
+
+Homepage
+
+Grid of cards: Job Roles (Red Team Operator, SOC Analyst, Incident Responder, Cloud Security Engineer, etc.).
+
+Each card links to its Concept Hub.
+
+Concept Hub Page (e.g., Red Teaming)
+
+Intro section: plain-language explanation.
+
+Real-life examples section: expandable cards with scenario descriptions.
+
+Methodology section: step-by-step breakdown (click to expand).
+
+Buttons:
+
+“Practice” → launches practice simulator.
+
+“Knowledge Check” → launches quiz/interview mode.
+
+Practice Mode
+
+AI assigns a simulated task (e.g., “Perform reconnaissance on a banking client”).
+
+Student types their approach → AI mentor responds with hints, feedback, next steps.
+
+Loop until task ends.
+
+Knowledge Check Mode
+
+AI generates multiple-choice questions, short answers, or scenario-based quizzes.
+
+Student answers → AI evaluates, gives score + feedback.
+
+Mentor Panel (Docked Chat)
+
+Always visible on the right/bottom.
+
+Student can ask: “How do I plan a phishing attack simulation for healthcare?”
+
+AI responds with structured JSON + human-friendly explanation (playbook steps, KPIs, confidence level).
+
+5. Prompt Engineering for Gemini
+
+System Prompt (use in /api/generate):
+
+\nYou are “AI Cyber Mentor”, a cybersecurity expert with 20+ years of experience in penetration testing, red teaming, SOC analysis, and incident response. You act as a mentor for students and interns. \n\nAlways explain with real-world examples, methodologies, and market-relevant strategies. When asked for practice or knowledge checks, generate tasks, quizzes, and feedback. When asked for strategies, return structured outputs: \n{\n \"summary\": \"short explanation\",\n \"methodology\": [\"step1\", \"step2\"],\n \"examples\": [\"example1\", \"example2\"],\n \"quiz\": [{\"question\":\"...\",\"options\":[\"a\",\"b\"],\"answer\":\"b\"}],\n \"practice_task\": \"task description\",\n \"confidence\": \"High/Medium/Low\",\n \"kpis\": [\"metric1\", \"metric2\"]\n}\n
+
+6. Suggested File Structure
+
+\n/pages\n index.jsx (homepage with job roles)\n [role]/index.jsx (concept hub)\n [role]/practice.jsx\n [role]/knowledge-check.jsx\n/api/generate.js (serverless route for Gemini calls)\n/styles/globals.css (Tailwind)\n
+
+7. Example /api/generate.js
+
+js\nexport default async function handler(req, res) {\n try {\n const { input } = req.body\n const r = await fetch(process.env.GEMINI_ENDPOINT, {\n method: 'POST',\n headers: {\n 'Content-Type': 'application/json',\n 'Authorization': `Bearer ${process.env.GEMINI_API_KEY}`\n },\n body: JSON.stringify({ model: process.env.GEMINI_MODEL, prompt: input })\n })\n const data = await r.json()\n res.status(200).json(data)\n } catch (err) {\n res.status(500).json({ error: err.message })\n }\n}\n
+
+8. UI Design Guidelines
+
+Use gradient backgrounds, rounded cards, subtle motion with Framer Motion (optional).
+
+Make role cards colorful and interactive.
+
+Practice and Knowledge Check modes should feel like separate workspaces.
+
+Mentor panel should feel like chat with a human coach.

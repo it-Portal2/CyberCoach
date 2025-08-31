@@ -1,0 +1,154 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: hsl(0, 0%, 4%);
+  --foreground: hsl(0, 0%, 98%);
+  --card: hsl(0, 0%, 10%);
+  --card-foreground: hsl(0, 0%, 98%);
+  --popover: hsl(0, 0%, 10%);
+  --popover-foreground: hsl(0, 0%, 98%);
+  --primary: hsl(168, 76%, 25%);
+  --primary-foreground: hsl(0, 0%, 98%);
+  --secondary: hsl(0, 0%, 15%);
+  --secondary-foreground: hsl(0, 0%, 98%);
+  --muted: hsl(0, 0%, 15%);
+  --muted-foreground: hsl(0, 0%, 63%);
+  --accent: hsl(120, 100%, 50%);
+  --accent-foreground: hsl(0, 0%, 9%);
+  --destructive: hsl(0, 62%, 30%);
+  --destructive-foreground: hsl(0, 85%, 97%);
+  --border: hsl(0, 0%, 15%);
+  --input: hsl(0, 0%, 15%);
+  --ring: hsl(168, 76%, 25%);
+  --chart-1: hsl(168, 76%, 25%);
+  --chart-2: hsl(120, 100%, 50%);
+  --chart-3: hsl(60, 100%, 50%);
+  --chart-4: hsl(240, 100%, 50%);
+  --chart-5: hsl(300, 100%, 50%);
+  --sidebar: hsl(0, 0%, 10%);
+  --sidebar-foreground: hsl(0, 0%, 98%);
+  --sidebar-primary: hsl(168, 76%, 25%);
+  --sidebar-primary-foreground: hsl(0, 0%, 98%);
+  --sidebar-accent: hsl(0, 0%, 15%);
+  --sidebar-accent-foreground: hsl(168, 76%, 25%);
+  --sidebar-border: hsl(0, 0%, 15%);
+  --sidebar-ring: hsl(168, 76%, 25%);
+  --font-sans: "Inter", sans-serif;
+  --font-serif: "Georgia", serif;
+  --font-mono: "JetBrains Mono", "Monaco", "Consolas", monospace;
+  --radius: 0.5rem;
+  --matrix-green: hsl(120, 100%, 25%);
+  --matrix-dark: hsl(120, 100%, 2%);
+}
+
+.dark {
+  --background: hsl(0, 0%, 4%);
+  --foreground: hsl(0, 0%, 98%);
+  --card: hsl(0, 0%, 10%);
+  --card-foreground: hsl(0, 0%, 98%);
+  --popover: hsl(0, 0%, 10%);
+  --popover-foreground: hsl(0, 0%, 98%);
+  --primary: hsl(168, 76%, 25%);
+  --primary-foreground: hsl(0, 0%, 98%);
+  --secondary: hsl(0, 0%, 15%);
+  --secondary-foreground: hsl(0, 0%, 98%);
+  --muted: hsl(0, 0%, 15%);
+  --muted-foreground: hsl(0, 0%, 63%);
+  --accent: hsl(120, 100%, 50%);
+  --accent-foreground: hsl(0, 0%, 9%);
+  --destructive: hsl(0, 62%, 30%);
+  --destructive-foreground: hsl(0, 85%, 97%);
+  --border: hsl(0, 0%, 15%);
+  --input: hsl(0, 0%, 15%);
+  --ring: hsl(168, 76%, 25%);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+    background: linear-gradient(135deg, hsl(0, 0%, 4%) 0%, hsl(168, 100%, 2%) 100%);
+    min-height: 100vh;
+  }
+}
+
+@layer components {
+  .terminal-window {
+    background: linear-gradient(145deg, hsl(0, 0%, 8%), hsl(0, 0%, 12%));
+    border: 1px solid hsl(0, 0%, 20%);
+  }
+  
+  .tool-card {
+    @apply transition-all duration-300 ease-in-out;
+    background: linear-gradient(145deg, hsl(0, 0%, 8%), hsl(0, 0%, 12%));
+    border: 1px solid hsl(0, 0%, 15%);
+  }
+  
+  .tool-card:hover {
+    @apply -translate-y-0.5;
+    border-color: var(--primary);
+    box-shadow: 0 10px 25px rgba(15, 118, 110, 0.2);
+  }
+  
+  .terminal-text {
+    font-family: var(--font-mono);
+    text-shadow: 0 0 10px currentColor;
+  }
+  
+  .glow-border {
+    border: 1px solid var(--primary);
+    box-shadow: 0 0 10px var(--primary);
+  }
+
+  .matrix-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: 0.03;
+    pointer-events: none;
+  }
+}
+
+@layer utilities {
+  .typing-cursor::after {
+    content: '▋';
+    animation: blink 1s infinite;
+    color: var(--accent);
+  }
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+@keyframes matrix {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+@keyframes glow {
+  from { box-shadow: 0 0 20px var(--primary); }
+  to { box-shadow: 0 0 30px var(--primary), 0 0 40px var(--primary); }
+}
+
+.animate-terminal-blink {
+  animation: blink 1s infinite;
+}
+
+.animate-matrix-rain {
+  animation: matrix 20s linear infinite;
+}
+
+.animate-glow {
+  animation: glow 2s ease-in-out infinite alternate;
+}
