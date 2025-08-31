@@ -8,20 +8,5 @@
         "distDir": "dist"
       }
     }
-  ],
-  "functions": {
-    "server/index.ts": {
-      "includeFiles": "shared/**"
-    }
-  },
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/server/index.ts"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
-    }
   ]
 }
