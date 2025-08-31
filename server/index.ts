@@ -12,20 +12,22 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// CORS for all environments
+// Handle CORS with OPTIONS preflight
 app.use((req, res, next) => {
+  // Set CORS headers for all requests
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
   
+  // Handle OPTIONS preflight requests (this fixes the 405 error)
   if (req.method === 'OPTIONS') {
-    res.sendStatus(200);
+    res.status(204).send(''); // No content for preflight
     return;
   }
   next();
 });
 
-// Simple logging middleware
+// Logging middleware
 app.use((req, res, next) => {
   const start = Date.now();
   res.on("finish", () => {
@@ -35,16 +37,18 @@ app.use((req, res, next) => {
     }
   });
   next();
-});;
+});
 
 // Initialize AI
 const ai = new GoogleGenAI({ 
   apiKey: process.env.GEMINI_API_KEY || "" 
 });
 
-// API Routes
+// ✅ API Routes - Ensure these are exactly as defined
 app.post("/api/mentor/chat", async (req, res) => {
   try {
+    console.log('POST /api/mentor/chat received:', req.body); // Debug log
+    
     const validatedRequest = mentorRequestSchema.parse(req.body);
     
     const systemPrompt = `You are "Jit Banerjee", an AI cybersecurity mentor with 20+ years of experience in penetration testing, red teaming, SOC analysis, incident response, and cybersecurity training. You are mentoring students through the AI Cyber Mentor platform powered by Cedar Pro Academy.
@@ -134,7 +138,6 @@ Additional context: ${validatedRequest.context || 'None provided'}`;
   }
 });
 
-// Generate practice scenarios
 app.post("/api/mentor/generate-practice", async (req, res) => {
   try {
     const { jobRole, difficulty, topic } = req.body;
@@ -167,7 +170,6 @@ app.post("/api/mentor/generate-practice", async (req, res) => {
   }
 });
 
-// Generate assessment questions
 app.post("/api/mentor/generate-assessment", async (req, res) => {
   try {
     const { jobRole, topic, questionCount = 5 } = req.body;
@@ -199,11 +201,8 @@ app.post("/api/mentor/generate-assessment", async (req, res) => {
   }
 });
 
-
-
 // Production: Serve React build files
 if (process.env.NODE_ENV === 'production') {
-  // Serve from dist root (where index.html will be after vite build)
   const distPath = path.resolve(__dirname, '..');
   
   console.log(`[Production] Serving static files from: ${distPath}`);
@@ -215,7 +214,6 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile(indexPath);
   });
 }
-
 
 // Error handling middleware
 app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
