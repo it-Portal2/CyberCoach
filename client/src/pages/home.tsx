@@ -1,31 +1,36 @@
-import { Card, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { JobRoleCard } from '@/components/job-role-card';
-import { MentorChat } from '@/components/mentor-chat';
-import { ProgressDashboard } from '@/components/progress-dashboard';
-import { TerminalWindow, TerminalPrompt } from '@/components/terminal-window';
-import { TypingEffect } from '@/components/typing-effect';
-import { useToast } from '@/hooks/use-toast';
-import { useProgress } from '@/hooks/use-progress';
-import { jobRoles } from '@/lib/job-roles';
-import { useState } from 'react';
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { JobRoleCard } from "@/components/job-role-card";
+import { MentorChat } from "@/components/mentor-chat";
+import { ProgressDashboard } from "@/components/progress-dashboard";
+import { TerminalWindow, TerminalPrompt } from "@/components/terminal-window";
+import { TypingEffect } from "@/components/typing-effect";
+import { useToast } from "@/hooks/use-toast";
+import { useProgress } from "@/hooks/use-progress";
+import { jobRoles } from "@/lib/job-roles";
+import { useState } from "react";
 
 export default function Home() {
   const { overallStats } = useProgress();
-  const [selectedFilter, setSelectedFilter] = useState<'all' | 'beginner' | 'advanced'>('all');
+  const [selectedFilter, setSelectedFilter] = useState<
+    "all" | "beginner" | "advanced"
+  >("all");
   const { toast } = useToast();
 
-  const filteredRoles = jobRoles.filter(role => {
-    if (selectedFilter === 'beginner') return role.difficulty === 'Beginner' || role.difficulty === 'Intermediate';
-    if (selectedFilter === 'advanced') return role.difficulty === 'Advanced';
+  const filteredRoles = jobRoles.filter((role) => {
+    if (selectedFilter === "beginner")
+      return (
+        role.difficulty === "Beginner" || role.difficulty === "Intermediate"
+      );
+    if (selectedFilter === "advanced") return role.difficulty === "Advanced";
     return true;
   });
 
   const terminalMessages = [
-    'Ready to hack the matrix',
-    'Initializing AI mentor systems',
-    'Loading cybersecurity modules', 
-    'Your cyber journey begins now'
+    "Ready to hack the matrix",
+    "Initializing AI mentor systems",
+    "Loading cybersecurity modules",
+    "Your cyber journey begins now",
   ];
 
   // Handler for coming soon features
@@ -49,16 +54,19 @@ export default function Home() {
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
-              <div className="text-2xl font-bold text-primary terminal-text" data-testid="text-brand-name">
+              <div
+                className="text-2xl font-bold text-primary terminal-text"
+                data-testid="text-brand-name"
+              >
                 <i className="fas fa-shield-alt mr-2"></i>
                 AI Cyber Mentor
               </div>
               <div className="text-sm text-muted-foreground">
-                by <span className="text-accent font-semibold">Jit Banerjee</span>
+                by{" "}
+                <span className="text-accent font-semibold">Jit Banerjee</span>
               </div>
             </div>
-            <div className="flex items-center space-x-4">
-            </div>
+            <div className="flex items-center space-x-4"></div>
           </div>
         </div>
       </header>
@@ -70,11 +78,16 @@ export default function Home() {
             Welcome to Your Cyber Security Command Center
           </h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-6">
-            Your AI-powered cybersecurity mentor is here to guide you through penetration testing, ethical hacking, and advanced security methodologies with 20+ years of field experience.
+            Your AI-powered cybersecurity mentor is here to guide you through
+            penetration testing, ethical hacking, and advanced security
+            methodologies with 6+ years of field experience.
           </p>
           <TerminalWindow className="max-w-2xl mx-auto">
             <TerminalPrompt>
-              <TypingEffect messages={terminalMessages} className="text-accent" />
+              <TypingEffect
+                messages={terminalMessages}
+                className="text-accent"
+              />
             </TerminalPrompt>
           </TerminalWindow>
         </div>
@@ -84,12 +97,17 @@ export default function Home() {
           <Card className="tool-card">
             <CardContent className="p-6">
               <div className="flex items-center justify-between mb-2">
-                <div className="text-2xl font-bold text-primary" data-testid="stat-job-roles">
+                <div
+                  className="text-2xl font-bold text-primary"
+                  data-testid="stat-job-roles"
+                >
                   {jobRoles.length}
                 </div>
                 <i className="fas fa-user-shield text-primary text-xl"></i>
               </div>
-              <div className="text-sm text-muted-foreground">Job Roles Available</div>
+              <div className="text-sm text-muted-foreground">
+                Job Roles Available
+              </div>
               <div className="w-full bg-secondary rounded-full h-2 mt-2">
                 <div className="bg-primary h-2 rounded-full w-3/4"></div>
               </div>
@@ -99,12 +117,17 @@ export default function Home() {
           <Card className="tool-card">
             <CardContent className="p-6">
               <div className="flex items-center justify-between mb-2">
-                <div className="text-2xl font-bold text-accent" data-testid="stat-concepts">
+                <div
+                  className="text-2xl font-bold text-accent"
+                  data-testid="stat-concepts"
+                >
                   {overallStats.totalConceptsCompleted}
                 </div>
                 <i className="fas fa-brain text-accent text-xl"></i>
               </div>
-              <div className="text-sm text-muted-foreground">Concepts Completed</div>
+              <div className="text-sm text-muted-foreground">
+                Concepts Completed
+              </div>
               <div className="w-full bg-secondary rounded-full h-2 mt-2">
                 <div className="bg-accent h-2 rounded-full w-4/5"></div>
               </div>
@@ -114,12 +137,17 @@ export default function Home() {
           <Card className="tool-card">
             <CardContent className="p-6">
               <div className="flex items-center justify-between mb-2">
-                <div className="text-2xl font-bold text-blue-400" data-testid="stat-assessments">
+                <div
+                  className="text-2xl font-bold text-blue-400"
+                  data-testid="stat-assessments"
+                >
                   {overallStats.totalAssessments}
                 </div>
                 <i className="fas fa-flask text-blue-400 text-xl"></i>
               </div>
-              <div className="text-sm text-muted-foreground">Assessments Taken</div>
+              <div className="text-sm text-muted-foreground">
+                Assessments Taken
+              </div>
               <div className="w-full bg-secondary rounded-full h-2 mt-2">
                 <div className="bg-blue-400 h-2 rounded-full w-2/3"></div>
               </div>
@@ -132,7 +160,9 @@ export default function Home() {
                 <div className="text-2xl font-bold text-yellow-400">24/7</div>
                 <i className="fas fa-robot text-yellow-400 text-xl"></i>
               </div>
-              <div className="text-sm text-muted-foreground">AI Mentor Support</div>
+              <div className="text-sm text-muted-foreground">
+                AI Mentor Support
+              </div>
               <div className="w-full bg-secondary rounded-full h-2 mt-2">
                 <div className="bg-yellow-400 h-2 rounded-full w-full animate-pulse"></div>
               </div>
@@ -149,29 +179,33 @@ export default function Home() {
             </h2>
             <div className="flex space-x-2">
               <Button
-                variant={selectedFilter === 'all' ? 'default' : 'secondary'}
-                onClick={() => setSelectedFilter('all')}
+                variant={selectedFilter === "all" ? "default" : "secondary"}
+                onClick={() => setSelectedFilter("all")}
                 data-testid="filter-all-roles"
               >
                 All Roles
               </Button>
               <Button
-                variant={selectedFilter === 'beginner' ? 'default' : 'secondary'}
-                onClick={() => setSelectedFilter('beginner')}
+                variant={
+                  selectedFilter === "beginner" ? "default" : "secondary"
+                }
+                onClick={() => setSelectedFilter("beginner")}
                 data-testid="filter-beginner-roles"
               >
                 Beginner
               </Button>
               <Button
-                variant={selectedFilter === 'advanced' ? 'default' : 'secondary'}
-                onClick={() => setSelectedFilter('advanced')}
+                variant={
+                  selectedFilter === "advanced" ? "default" : "secondary"
+                }
+                onClick={() => setSelectedFilter("advanced")}
                 data-testid="filter-advanced-roles"
               >
                 Advanced
               </Button>
             </div>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredRoles.map((role) => (
               <JobRoleCard key={role.id} role={role} />
@@ -185,22 +219,28 @@ export default function Home() {
             <i className="fas fa-tools text-primary mr-3"></i>
             Your Cybersecurity Toolkit
           </h2>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Practice Simulator */}
-            <Card className="tool-card text-center group cursor-pointer" data-testid="tool-practice-simulator">
+            <Card
+              className="tool-card text-center group cursor-pointer"
+              data-testid="tool-practice-simulator"
+            >
               <CardContent className="p-8">
-                <img 
-                  src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400" 
-                  alt="Cybersecurity professionals working" 
-                  className="rounded-xl mb-6 w-full h-48 object-cover opacity-80 group-hover:opacity-100 transition-opacity" 
+                <img
+                  src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400"
+                  alt="Cybersecurity practice simulator environment"
+                  className="rounded-xl mb-6 w-full h-48 object-cover opacity-80 group-hover:opacity-100 transition-opacity"
                 />
-                <h3 className="text-2xl font-bold mb-4 text-accent">Practice Simulator</h3>
+                <h3 className="text-2xl font-bold mb-4 text-accent">
+                  Practice Simulator
+                </h3>
                 <p className="text-muted-foreground mb-6">
-                  Hands-on guided exercises in safe, sandboxed environments with real-time mentor feedback.
+                  Hands-on guided exercises in safe, sandboxed environments with
+                  real-time mentor feedback.
                 </p>
-                <Button 
-                  className="w-full bg-accent text-accent-foreground hover:bg-accent/80" 
+                <Button
+                  className="w-full bg-accent text-accent-foreground hover:bg-accent/80"
                   data-testid="button-start-practice"
                   onClick={() => handleComingSoon("Practice Simulator")}
                 >
@@ -210,19 +250,25 @@ export default function Home() {
             </Card>
 
             {/* Knowledge Assessment */}
-            <Card className="tool-card text-center group cursor-pointer" data-testid="tool-knowledge-assessment">
+            <Card
+              className="tool-card text-center group cursor-pointer"
+              data-testid="tool-knowledge-assessment"
+            >
               <CardContent className="p-8">
-                <img 
-                  src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400" 
-                  alt="Penetration testing environment" 
-                  className="rounded-xl mb-6 w-full h-48 object-cover opacity-80 group-hover:opacity-100 transition-opacity" 
+                <img
+                  src="https://images.unsplash.com/photo-1555949963-aa79dcee981c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400"
+                  alt="Cybersecurity knowledge assessment dashboard"
+                  className="rounded-xl mb-6 w-full h-48 object-cover opacity-80 group-hover:opacity-100 transition-opacity"
                 />
-                <h3 className="text-2xl font-bold mb-4 text-blue-400">Knowledge Assessment</h3>
+                <h3 className="text-2xl font-bold mb-4 text-blue-400">
+                  Knowledge Assessment
+                </h3>
                 <p className="text-muted-foreground mb-6">
-                  Adaptive questioning system that evaluates your understanding and identifies knowledge gaps.
+                  Adaptive questioning system that evaluates your understanding
+                  and identifies knowledge gaps.
                 </p>
-                <Button 
-                  className="w-full bg-blue-500 text-white hover:bg-blue-600" 
+                <Button
+                  className="w-full bg-blue-500 text-white hover:bg-blue-600"
                   data-testid="button-take-assessment"
                   onClick={() => handleComingSoon("Knowledge Assessment")}
                 >
@@ -232,19 +278,25 @@ export default function Home() {
             </Card>
 
             {/* Methodology Builder */}
-            <Card className="tool-card text-center group cursor-pointer" data-testid="tool-methodology-builder">
+            <Card
+              className="tool-card text-center group cursor-pointer"
+              data-testid="tool-methodology-builder"
+            >
               <CardContent className="p-8">
-                <img 
-                  src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400" 
-                  alt="Red team operations planning" 
-                  className="rounded-xl mb-6 w-full h-48 object-cover opacity-80 group-hover:opacity-100 transition-opacity" 
+                <img
+                  src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400"
+                  alt="Penetration testing methodology planning workspace"
+                  className="rounded-xl mb-6 w-full h-48 object-cover opacity-80 group-hover:opacity-100 transition-opacity"
                 />
-                <h3 className="text-2xl font-bold mb-4 text-yellow-400">Methodology Builder</h3>
+                <h3 className="text-2xl font-bold mb-4 text-yellow-400">
+                  Methodology Builder
+                </h3>
                 <p className="text-muted-foreground mb-6">
-                  Create custom penetration testing workflows and security assessment procedures.
+                  Create custom penetration testing workflows and security
+                  assessment procedures.
                 </p>
-                <Button 
-                  className="w-full bg-yellow-500 text-black hover:bg-yellow-400" 
+                <Button
+                  className="w-full bg-yellow-500 text-black hover:bg-yellow-400"
                   data-testid="button-build-methodology"
                   onClick={() => handleComingSoon("Methodology Builder")}
                 >
@@ -254,19 +306,25 @@ export default function Home() {
             </Card>
 
             {/* Career Roadmap */}
-            <Card className="tool-card text-center group cursor-pointer" data-testid="tool-career-roadmap">
+            <Card
+              className="tool-card text-center group cursor-pointer"
+              data-testid="tool-career-roadmap"
+            >
               <CardContent className="p-8">
-                <img 
-                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400" 
-                  alt="Career development roadmap" 
-                  className="rounded-xl mb-6 w-full h-48 object-cover opacity-80 group-hover:opacity-100 transition-opacity" 
+                <img
+                  src="https://images.unsplash.com/photo-1553877522-43269d4ea984?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400"
+                  alt="Cybersecurity career development path"
+                  className="rounded-xl mb-6 w-full h-48 object-cover opacity-80 group-hover:opacity-100 transition-opacity"
                 />
-                <h3 className="text-2xl font-bold mb-4 text-purple-400">Career Roadmap</h3>
+                <h3 className="text-2xl font-bold mb-4 text-purple-400">
+                  Career Roadmap
+                </h3>
                 <p className="text-muted-foreground mb-6">
-                  Personalized learning paths with certification planning and skill development tracking.
+                  Personalized learning paths with certification planning and
+                  skill development tracking.
                 </p>
-                <Button 
-                  className="w-full bg-purple-500 text-white hover:bg-purple-600" 
+                <Button
+                  className="w-full bg-purple-500 text-white hover:bg-purple-600"
                   data-testid="button-plan-career"
                   onClick={() => handleComingSoon("Career Roadmap")}
                 >
@@ -276,19 +334,25 @@ export default function Home() {
             </Card>
 
             {/* Case Study Analyzer */}
-            <Card className="tool-card text-center group cursor-pointer" data-testid="tool-case-study-analyzer">
+            <Card
+              className="tool-card text-center group cursor-pointer"
+              data-testid="tool-case-study-analyzer"
+            >
               <CardContent className="p-8">
-                <img 
-                  src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400" 
-                  alt="Security incident analysis" 
-                  className="rounded-xl mb-6 w-full h-48 object-cover opacity-80 group-hover:opacity-100 transition-opacity" 
+                <img
+                  src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400"
+                  alt="Security incident analysis dashboard"
+                  className="rounded-xl mb-6 w-full h-48 object-cover opacity-80 group-hover:opacity-100 transition-opacity"
                 />
-                <h3 className="text-2xl font-bold mb-4 text-red-400">Case Study Analyzer</h3>
+                <h3 className="text-2xl font-bold mb-4 text-red-400">
+                  Case Study Analyzer
+                </h3>
                 <p className="text-muted-foreground mb-6">
-                  Learn from real-world breaches and security incidents with detailed analysis and lessons.
+                  Learn from real-world breaches and security incidents with
+                  detailed analysis and lessons.
                 </p>
-                <Button 
-                  className="w-full bg-red-500 text-white hover:bg-red-600" 
+                <Button
+                  className="w-full bg-red-500 text-white hover:bg-red-600"
                   data-testid="button-analyze-cases"
                   onClick={() => handleComingSoon("Case Study Analyzer")}
                 >
@@ -298,19 +362,25 @@ export default function Home() {
             </Card>
 
             {/* Toolkit Generator */}
-            <Card className="tool-card text-center group cursor-pointer" data-testid="tool-toolkit-generator">
+            <Card
+              className="tool-card text-center group cursor-pointer"
+              data-testid="tool-toolkit-generator"
+            >
               <CardContent className="p-8">
-                <img 
-                  src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400" 
-                  alt="Ethical hacking workspace" 
-                  className="rounded-xl mb-6 w-full h-48 object-cover opacity-80 group-hover:opacity-100 transition-opacity" 
+                <img
+                  src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400"
+                  alt="Ethical hacking toolkit workspace"
+                  className="rounded-xl mb-6 w-full h-48 object-cover opacity-80 group-hover:opacity-100 transition-opacity"
                 />
-                <h3 className="text-2xl font-bold mb-4 text-green-400">Toolkit Generator</h3>
+                <h3 className="text-2xl font-bold mb-4 text-green-400">
+                  Toolkit Generator
+                </h3>
                 <p className="text-muted-foreground mb-6">
-                  Generate custom checklists, playbooks, and procedures for your security operations.
+                  Generate custom checklists, playbooks, and procedures for your
+                  security operations.
                 </p>
-                <Button 
-                  className="w-full bg-green-500 text-black hover:bg-green-400" 
+                <Button
+                  className="w-full bg-green-500 text-black hover:bg-green-400"
                   data-testid="button-generate-tools"
                   onClick={() => handleComingSoon("Toolkit Generator")}
                 >
@@ -341,17 +411,23 @@ export default function Home() {
         <div className="container mx-auto px-4 py-8">
           <div className="flex flex-col md:flex-row items-center justify-between">
             <div className="text-center md:text-left mb-4 md:mb-0">
-              <div className="text-lg font-bold text-primary terminal-text">AI Cyber Mentor</div>
+              <div className="text-lg font-bold text-primary terminal-text">
+                AI Cyber Mentor
+              </div>
               <div className="text-sm text-muted-foreground">
                 Empowering the next generation of cybersecurity professionals
               </div>
             </div>
             <div className="flex items-center space-x-6">
               <div className="text-sm text-muted-foreground">
-                Mentored by <span className="text-accent font-semibold">Jit Banerjee</span>
+                Mentored by{" "}
+                <span className="text-accent font-semibold">Jit Banerjee</span>
               </div>
               <div className="text-sm text-muted-foreground">
-                Sponsored by <span className="text-primary font-semibold">Cedar Pro Academy</span>
+                Sponsored by{" "}
+                <span className="text-primary font-semibold">
+                  Cedar Pro Academy
+                </span>
               </div>
               <div className="flex space-x-4">
                 <i className="fab fa-github text-muted-foreground hover:text-primary cursor-pointer transition-colors"></i>

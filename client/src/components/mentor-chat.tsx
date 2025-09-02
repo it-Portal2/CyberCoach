@@ -28,7 +28,7 @@ export function MentorChat({ jobRole, className }: MentorChatProps) {
     {
       id: '1',
       role: 'mentor',
-      content: "Hello! I'm Jit Banerjee, your cybersecurity mentor with 20+ years of field experience. My AI version is here to guide you 24/7 with penetration testing, red teaming, SOC operations, and career guidance. How can I help you today?",
+      content: "Hello! I'm Jit Banerjee, your cybersecurity mentor with 6+ years of field experience. My AI version is here to guide you 24/7 with penetration testing, red teaming, SOC operations, and career guidance. How can I help you today?",
       timestamp: new Date()
     }
   ]);
@@ -118,7 +118,7 @@ export function MentorChat({ jobRole, className }: MentorChatProps) {
                   </Badge>
                 )}
               </div>
-              <div className="text-xs text-muted-foreground font-normal">Cybersecurity Expert • 20+ Years Experience</div>
+              <div className="text-xs text-muted-foreground font-normal">Cybersecurity Expert • 6+ Years Experience</div>
             </div>
           </div>
         </CardTitle>
